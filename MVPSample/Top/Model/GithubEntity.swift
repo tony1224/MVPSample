@@ -8,22 +8,20 @@
 
 import UIKit
 
-protocol WeatherEntityProtocol {
-    // properties
+// TODO: Protocol化する意味は？
+protocol GithubEntityProtocol {
+
     var dateString: String { get }
     var weather: String { get }
     
-    // init
     init(dateString: String, weather: String)
 }
 
-class WeatherEntity: WeatherEntityProtocol {
+class GithubEntity: GithubEntityProtocol {
 
-    // MARK: properties
     var dateString: String
     let weather: String
     
-    // MARK: init
     required init(dateString: String, weather: String) {
         self.dateString = dateString
         self.weather = weather

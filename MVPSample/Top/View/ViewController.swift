@@ -8,9 +8,9 @@
 
 import UIKit
 
-protocol WeatherListViewProtocol: class {
+protocol TopViewDelegate: class {
     func reloadData()
-    func navigateDetail(entity: WeatherEntityProtocol)
+    func transitToDetail(entity: GithubEntityProtocol)
 }
 
 class ViewController: UIViewController {
@@ -22,11 +22,11 @@ class ViewController: UIViewController {
             // TODO: cellのregisterが必要ならここで
         }
     }
-    private(set) var presenter: WeatherListViewPresenter!
+    private(set) var presenter: TopViewPresenter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.presenter = WeatherListViewPresenter(view: self)
+        self.presenter = TopViewPresenter(view: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,16 +48,18 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: WeatherListViewProtocol {
+extension ViewController: TopViewDelegate {
     
     func reloadData() {
         self.tableView.refreshControl?.endRefreshing()
         self.tableView.reloadData()
     }
     
-    func navigateDetail(entity: WeatherEntityProtocol) {
-        let vc = DetailViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+    func transitToDetail(entity: GithubEntityProtocol) {
+        // TODO: VCが取得できない場合のエラーを考えておく必要あり
+        if let vc = DetailViewController.setup(entity: entity) {
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
 }
@@ -65,12 +67,12 @@ extension ViewController: WeatherListViewProtocol {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.presenter.numberOfWeathers
+        return self.presenter.githubInfoCounts
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! WeatherViewCell
-        let entity = self.presenter.entity(at: indexPath)
+        let entity = self.presenter.getEntity(at: indexPath.row)
         cell.setData(entity: entity)
         return cell
     }

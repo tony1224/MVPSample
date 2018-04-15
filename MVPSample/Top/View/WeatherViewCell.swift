@@ -13,7 +13,7 @@ class WeatherViewCell: UITableViewCell {
     @IBOutlet private weak var weatherLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
     
-    func setData(entity: WeatherEntityProtocol) {
+    func setData(entity: GithubEntityProtocol) {
         self.dateLabel.text = entity.dateString
         self.weatherLabel.text = entity.weather
     }
