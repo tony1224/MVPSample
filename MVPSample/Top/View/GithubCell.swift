@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WeatherViewCell: UITableViewCell {
+class GithubCell: UITableViewCell {
 
     @IBOutlet private weak var weatherLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!

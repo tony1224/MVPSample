@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         didSet {
             self.tableView.refreshControl = UIRefreshControl()
             self.tableView.refreshControl?.addTarget(self, action: #selector(self.updateWeathers), for: .valueChanged)
-            // TODO: cellのregisterが必要ならここで
+            // NOTE: Cellのregister処理など
         }
     }
     private(set) var presenter: TopViewPresenter!
@@ -71,7 +71,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! WeatherViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! GithubCell
         let entity = self.presenter.getEntity(at: indexPath.row)
         cell.setData(entity: entity)
         return cell
