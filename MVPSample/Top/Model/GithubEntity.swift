@@ -8,23 +8,22 @@
 
 import UIKit
 
-// TODO: Protocol化する意味は？
 protocol GithubEntityProtocol {
 
-    var dateString: String { get }
-    var weather: String { get }
+    var id: Int { get }
+    var fullName: String { get }
     
-    init(dateString: String, weather: String)
+    init(id: Int, fullName: String)
 }
 
 class GithubEntity: GithubEntityProtocol {
 
-    var dateString: String
-    let weather: String
+    var id: Int
+    let fullName: String
     
-    required init(dateString: String, weather: String) {
-        self.dateString = dateString
-        self.weather = weather
+    required init(id: Int, fullName: String) {
+        self.id = id
+        self.fullName = fullName
     }
 
 }

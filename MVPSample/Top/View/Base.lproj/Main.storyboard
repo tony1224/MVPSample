@@ -30,21 +30,19 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天気" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vud-LH-Q7i">
-                                                    <rect key="frame" x="15" y="19" width="70" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID値" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vud-LH-Q7i">
+                                                    <rect key="frame" x="15" y="19" width="33.5" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="70" id="ZJ4-k2-rYe"/>
                                                         <constraint firstAttribute="height" constant="21" id="hMr-St-MbY"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="日付" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ky3-Nn-8bI">
-                                                    <rect key="frame" x="210" y="19" width="150" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="名前" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ky3-Nn-8bI">
+                                                    <rect key="frame" x="325" y="19" width="35" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="AoR-Tx-2JC"/>
-                                                        <constraint firstAttribute="width" constant="150" id="FgL-wF-PM0"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -54,6 +52,8 @@
                                             <constraints>
                                                 <constraint firstItem="vud-LH-Q7i" firstAttribute="leading" secondItem="5hb-v4-S3X" secondAttribute="leadingMargin" id="0DS-oF-twa"/>
                                                 <constraint firstItem="ky3-Nn-8bI" firstAttribute="trailing" secondItem="5hb-v4-S3X" secondAttribute="trailingMargin" id="8mO-WW-2eb"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vud-LH-Q7i" secondAttribute="trailingMargin" id="lQG-eh-Xpi"/>
+                                                <constraint firstItem="ky3-Nn-8bI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5hb-v4-S3X" secondAttribute="leadingMargin" id="wU8-wD-pId"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <constraints>
@@ -61,8 +61,8 @@
                                             <constraint firstItem="vud-LH-Q7i" firstAttribute="centerY" secondItem="C5r-Ve-hgj" secondAttribute="centerY" id="Ug5-jz-IRD"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="dateLabel" destination="ky3-Nn-8bI" id="hXK-iA-oEL"/>
-                                            <outlet property="weatherLabel" destination="vud-LH-Q7i" id="aTz-hX-nys"/>
+                                            <outlet property="fullNameLabel" destination="ky3-Nn-8bI" id="kwj-6V-hnK"/>
+                                            <outlet property="idLabel" destination="vud-LH-Q7i" id="8fy-FD-0O2"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

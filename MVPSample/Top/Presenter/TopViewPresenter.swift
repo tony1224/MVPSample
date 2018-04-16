@@ -6,7 +6,7 @@
 //  Copyright © 2018年 KamuiProject. All rights reserved.
 //
 
-protocol TopViewPresenterDelegate: class {
+protocol TopViewPresenterProtocol: class {
 
     var githubInfoCounts: Int { get }
 
@@ -18,7 +18,7 @@ protocol TopViewPresenterDelegate: class {
 
 }
 
-class TopViewPresenter: TopViewPresenterDelegate {
+class TopViewPresenter: TopViewPresenterProtocol {
     
     private let view: TopViewDelegate
     private let model: GithubModelProtocol
@@ -30,11 +30,26 @@ class TopViewPresenter: TopViewPresenterDelegate {
     required init(view: TopViewDelegate) {
         self.view = view
         self.model = GithubModel(query: "swift")
+        
+        // 初回表示時に通信
+        self.model.fetchGithubInfo(completion: { error in
+            guard let error = error else {
+                return
+            }
+            // エラーがあったらなんかする
+            print(error)
+        })
     }
         
     func updateWeathers() {
         self.model.resetGithubInfo()
-        self.model.fetchGithubInfo()
+        self.model.fetchGithubInfo(completion: { error in
+            guard let error = error else {
+                return
+            }
+            // エラーがあったらなんかする
+            print(error)
+        })
     }
     
     func getEntity(at index: Int) -> GithubEntityProtocol {

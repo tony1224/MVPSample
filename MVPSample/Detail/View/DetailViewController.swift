@@ -10,10 +10,10 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    @IBOutlet private weak var dateLabel: UILabel!
-    @IBOutlet private weak var weatherLabel: UILabel!
+    @IBOutlet private weak var idLabel: UILabel!
+    @IBOutlet private weak var fullNameLabel: UILabel!
     
-    var presenter: WeatherDetailViewPresenterProtocol!
+    var presenter: GithubDetailViewPresenterProtocol!
     
     // MARK: - Setup
     static func setup(entity: GithubEntityProtocol) -> DetailViewController? {

@@ -6,22 +6,23 @@
 //  Copyright © 2018年 KamuiProject. All rights reserved.
 //
 
-protocol WeatherDetailViewPresenterProtocol {
-    var date: String { get }
-    var weather: String { get }
+protocol GithubDetailViewPresenterProtocol {
+    var id: Int { get }
+    var fullName: String { get }
+    
     init(entity: GithubEntityProtocol)
 }
 
-class DetailViewPresenter: WeatherDetailViewPresenterProtocol {
+class DetailViewPresenter: GithubDetailViewPresenterProtocol {
 
     let entity: GithubEntityProtocol
 
-    var date: String {
-        return self.entity.dateString
+    var id: Int {
+        return self.entity.id
     }
     
-    var weather: String {
-        return self.entity.weather
+    var fullName: String {
+        return self.entity.fullName
     }
     
     required init(entity: GithubEntityProtocol) {

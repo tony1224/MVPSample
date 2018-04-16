@@ -12,7 +12,7 @@ import APIKit
 protocol GithubRequest: Request {}
 
 extension GithubRequest {
-    var baseURL: URL { return URL(string: "https://")! }
+    var baseURL: URL { return URL(string: "https://api.github.com")! }
 }
 
 extension GithubRequest where Response: Decodable {

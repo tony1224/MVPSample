@@ -10,12 +10,12 @@ import UIKit
 
 class GithubCell: UITableViewCell {
 
-    @IBOutlet private weak var weatherLabel: UILabel!
-    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var idLabel: UILabel!
+    @IBOutlet private weak var fullNameLabel: UILabel!
     
     func setData(entity: GithubEntityProtocol) {
-        self.dateLabel.text = entity.dateString
-        self.weatherLabel.text = entity.weather
+        self.idLabel.text = "\(entity.id)"
+        self.fullNameLabel.text = entity.fullName
     }
 
 }
