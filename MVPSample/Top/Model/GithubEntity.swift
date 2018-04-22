@@ -12,18 +12,21 @@ protocol GithubEntityProtocol {
 
     var id: Int { get }
     var fullName: String { get }
+    var thumbnailUrl: String { get }
     
-    init(id: Int, fullName: String)
+    init(id: Int, fullName: String, thumbnailUrl: String)
 }
 
 class GithubEntity: GithubEntityProtocol {
 
     var id: Int
     let fullName: String
+    let thumbnailUrl: String
     
-    required init(id: Int, fullName: String) {
+    required init(id: Int, fullName: String, thumbnailUrl: String) {
         self.id = id
         self.fullName = fullName
+        self.thumbnailUrl = thumbnailUrl
     }
 
 }

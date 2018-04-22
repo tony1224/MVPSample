@@ -15,18 +15,24 @@ protocol TopViewDelegate: class {
 
 class ViewController: UIViewController {
 
+    // 入力文字列
+    private var text: String = ""
+    
     @IBOutlet private var tableView: UITableView! {
         didSet {
+            // はじめは非表示で
+            self.tableView.isHidden = true
+            self.tableView.tableFooterView = UIView()
             self.tableView.refreshControl = UIRefreshControl()
-            self.tableView.refreshControl?.addTarget(self, action: #selector(self.updateWeathers), for: .valueChanged)
-            // NOTE: Cellのregister処理など
+            self.tableView.refreshControl?.addTarget(self, action: #selector(self.updateGithubInfo), for: .valueChanged)
+            // NOTE: Cellのregister処理もここで
         }
     }
     private(set) var presenter: TopViewPresenter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.presenter = TopViewPresenter(view: self)
+        self.presenter = TopViewPresenter(view: self, model: GithubModel())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,8 +47,8 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    @objc func updateWeathers() {
-        self.presenter.updateWeathers()
+    @objc func updateGithubInfo() {
+        self.presenter.updateGithubInfo(text: self.text)
         self.tableView.refreshControl?.beginRefreshing()
     }
 
@@ -64,10 +70,36 @@ extension ViewController: TopViewDelegate {
     
 }
 
+extension ViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder() // Dismiss the keyboard
+        self.text = textField.text!
+        self.presenter.updateGithubInfo(text: self.text)
+        return true
+    }
+    
+}
+
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.presenter.githubInfoCounts
+        // TODO: ここpresenterが生成される前に呼ばれる
+        guard let presenter = self.presenter else {
+            return 0
+        }
+        // TODO: ここでしか件数判定=表示判定できない？コールバックを持たないので
+        if presenter.githubInfoCounts > 0 {
+            self.tableView.isHidden = false
+            return presenter.githubInfoCounts
+        } else {
+            self.tableView.isHidden = true
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

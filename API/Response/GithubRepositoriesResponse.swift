@@ -15,10 +15,12 @@ struct SearchRepositoriesResponse: Decodable {
 struct Repository: Decodable {
     let id: Int
     let fullName: String
+    let thumbnailUrl: String
     
     private enum CodingKeys: String, CodingKey {
         case id
         case fullName = "full_name"
+        case thumbnailUrl = "avatar_url"
     }
 
 }

@@ -10,9 +10,9 @@ protocol TopViewPresenterProtocol: class {
 
     var githubInfoCounts: Int { get }
 
-    init(view: TopViewDelegate)
+    init(view: TopViewDelegate, model: GithubModelProtocol)
     
-    func updateWeathers()
+    func updateGithubInfo(text: String)
     func getEntity(at: Int) -> GithubEntityProtocol
     func didSelectRow(at index: Int)
 
@@ -21,19 +21,24 @@ protocol TopViewPresenterProtocol: class {
 class TopViewPresenter: TopViewPresenterProtocol {
     
     private let view: TopViewDelegate
-    private let model: GithubModelProtocol
+    // TODO: ここletにできない？ただDI的にはこうせざるを得ない？
+    private var model: GithubModelProtocol
     
     var githubInfoCounts: Int {
         return model.githubInfoList.count
     }
     
-    required init(view: TopViewDelegate) {
+    required init(view: TopViewDelegate, model: GithubModelProtocol) {
         self.view = view
-        self.model = GithubModel(query: "swift")
+        self.model = model
         
         // 初回表示時に通信
-        self.model.fetchGithubInfo(completion: { error in
+        // NOTE: 初回なので渡せる文字列は無し
+        // TODO: Realmで情報を保持しておいてそれを初回に通信するようにしたい
+        // まぁそれは持ってくるのではなくて、ここで取得すれば良いだけか
+        self.model.fetchGithubInfo(text: "", completion: { [weak self] error in
             guard let error = error else {
+                self?.view.reloadData()
                 return
             }
             // エラーがあったらなんかする
@@ -41,10 +46,11 @@ class TopViewPresenter: TopViewPresenterProtocol {
         })
     }
         
-    func updateWeathers() {
+    func updateGithubInfo(text: String) {
         self.model.resetGithubInfo()
-        self.model.fetchGithubInfo(completion: { error in
+        self.model.fetchGithubInfo(text: text, completion: { [weak self] error in
             guard let error = error else {
+                self?.view.reloadData()
                 return
             }
             // エラーがあったらなんかする
